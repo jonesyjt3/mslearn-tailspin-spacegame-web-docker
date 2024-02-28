@@ -8,22 +8,21 @@ variables:
 stages:
 - stage: 'Build'
   displayName: 'Build and push'
-  jobs:  
+  jobs: 
   - job: 'Build'
     displayName: 'Build job'
     pool:
       vmImage: 'ubuntu-20.04'
     steps:
     - task: Docker@2
-      displayName: 'Build and push the image to container registry'
+      displayName: 'Build and push the image to the container registry'
       inputs:
         command: buildAndPush
         buildContext: $(Build.Repository.LocalPath)
         repository: $(webRepository)
-        dockerfile: '$(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/Dockerfile'
+        Dockerfile: '$(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/Dockerfile'
         containerRegistry: 'Container Registry Connection'
-        tags: |
-          $(tag)
+        tags: $(tag)
 
 - stage: 'Deploy'
   displayName: 'Deploy the container'
